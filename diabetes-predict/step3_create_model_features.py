@@ -1,8 +1,14 @@
-import pandas as pd
-import numpy as np
+"""
+módulo con ingeniería de características
+"""
+
 import pickle
+import pandas as pd
 
 def create_model_features():
+    """
+    función para eliminar columnas no necesarias e imputar valores
+    """
     df = pd.read_csv('../data/processed/df_test.csv')
 
     # Eliminamos variables con número significativo de faltantes
@@ -14,7 +20,7 @@ def create_model_features():
 
     for col in cols_imputacion:
         media = int(df[col].mean())
-        imputed_key = f"{col}_imputed_value"  
+        imputed_key = f"{col}_imputed_value"
         feature_eng_configs[imputed_key] = media
         df[col] = df[col].replace(0, media).astype(int)
 
@@ -24,4 +30,3 @@ def create_model_features():
 
     # Guardamos dataset procesado
     df.to_csv('../data/processed/features_for_model.csv', index=False)
-
