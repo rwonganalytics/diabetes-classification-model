@@ -20,7 +20,7 @@ def create_model_features():
         df[col] = df[col].replace(0, media).astype(int)
 
     # Guardamos valores imputados como artefacto
-      with open("../artifacts/feature_eng_configs.pkl", "wb") as f:
+    with open("../artifacts/feature_eng_configs.pkl", "wb") as f:
         pickle.dump(feature_eng_configs, f)
 
     # Estandarización de variables
