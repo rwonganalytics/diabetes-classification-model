@@ -27,7 +27,8 @@ def model_creation():
     mm_scaler = MinMaxScaler()
     mm_scaler.fit(X_train)
 
-    df_scaled = pd.DataFrame(mm_scaler.transform(X_train), columns=X_train.columns)
+    X_train = pd.DataFrame(mm_scaler.transform(X_train), columns=X_train.columns)
+    X_test = pd.DataFrame(mm_scaler.transform(X_test), columns=X_test.columns)
 
     # Guardamos el Scaler como artefacto
     with open("../artifacts/mm_scaler.pkl", "wb") as f:
