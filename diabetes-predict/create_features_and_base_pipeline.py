@@ -53,3 +53,8 @@ def create_features_and_base_pipeline():
     # Guardamos el pipeline
     with open("../artifacts/pipeline.pkl", "wb") as f:
         pickle.dump(diabetes_predict_pipeline, f)
+
+    # Guardamos dataset de test
+    df_test = pd.DataFrame(x_test, columns=x_test.columns)
+    df_test[target] = y_test
+    df_test.to_csv("../data/processed/test_dataset.csv", index=False)
