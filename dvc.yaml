@@ -1,0 +1,27 @@
+stages:
+  create_features:
+    cmd: python create_features_and_base_pipeline.py
+    deps:
+      - create_features_and_base_pipeline.py
+      - pipeline.cfg
+    outs:
+      - artifacts/pipeline.pkl
+
+  configure_and_fit:
+    cmd: python configure_and_fit_pipeline.py
+    deps:
+      - configure_and_fit_pipeline.py
+      - artifacts/pipeline.pkl
+      - data/raw/diabetes.csv
+    outs:
+      - artifacts/trainded_pipeline.pkl
+
+  predict:
+    cmd: python predict_pipeline.py
+    deps:
+      - predict_pipeline.py
+      - artifacts/trainded_pipeline.pkl
+      - data/raw/diabetes.csv
+    outs:
+      - data/predictions
+
