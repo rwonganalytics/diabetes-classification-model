@@ -14,9 +14,10 @@ from sklearn.preprocessing import MinMaxScaler
 def create_features_and_base_pipeline():
     """
     Esta función define el pipeline base para el modelo de ML.
-    """
-    project_path = os.path.dirname(os.getcwd())
-
+    """    
+    
+    project_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+  
     # leemos del configparser.
     config = configparser.ConfigParser()
     config.read(os.path.join(project_path, "pipeline.cfg"))

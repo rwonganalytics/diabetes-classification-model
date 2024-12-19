@@ -18,8 +18,9 @@ from sklearn.svm import SVC
 def configure_and_fit_pipeline():
     """
     Esta función define el mejor modelo de predicción y lo agrega al pipeline de ML
-    """
-    project_path = os.path.dirname(os.getcwd())
+    """    
+    
+    project_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
     dataset = pd.read_csv(os.path.join(project_path, "data", "raw", "diabetes.csv"))
 
     # configuración del Pipeline

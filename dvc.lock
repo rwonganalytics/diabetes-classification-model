@@ -1,0 +1,58 @@
+schema: '2.0'
+stages:
+  create_pipeline:
+    cmd: python diabetes-predict/create_features_and_base_pipeline.py
+    deps:
+    - path: diabetes-predict/create_features_and_base_pipeline.py
+      hash: md5
+      md5: 5221bffd3e85b27a4eaddbc8f7822739
+      size: 1460
+    - path: pipeline.cfg
+      hash: md5
+      md5: f28d3e3e5ecd8f3f5a49d31c3729126b
+      size: 134
+    outs:
+    - path: artifacts/pipeline.pkl
+      hash: md5
+      md5: d8d85319ad0a802bb0ec08fdddcc4b95
+      size: 543
+  configure_and_fit:
+    cmd: python diabetes-predict/configure_and_fit_pipeline.py
+    deps:
+    - path: artifacts/pipeline.pkl
+      hash: md5
+      md5: d8d85319ad0a802bb0ec08fdddcc4b95
+      size: 543
+    - path: data/raw/diabetes.csv
+      hash: md5
+      md5: f2906818eda8fcfc8f8416557ab1e6df
+      size: 23873
+    - path: diabetes-predict/configure_and_fit_pipeline.py
+      hash: md5
+      md5: dbd8852f1841bba8630aeb1b477c57e1
+      size: 6204
+    outs:
+    - path: artifacts/trainded_pipeline.pkl
+      hash: md5
+      md5: 482418dc3dfd111dd9f7c090eb6157ae
+      size: 53588
+  predict:
+    cmd: python diabetes-predict/predict_pipeline.py
+    deps:
+    - path: artifacts/trainded_pipeline.pkl
+      hash: md5
+      md5: 482418dc3dfd111dd9f7c090eb6157ae
+      size: 53588
+    - path: data/raw/diabetes.csv
+      hash: md5
+      md5: f2906818eda8fcfc8f8416557ab1e6df
+      size: 23873
+    - path: diabetes-predict/predict_pipeline.py
+      hash: md5
+      md5: a3d6240519bc3b319beaf9384dbad1f4
+      size: 2128
+    outs:
+    - path: data/predictions/predictions.csv
+      hash: md5
+      md5: f15efdff9a9dd20e3528cbecefa72768
+      size: 2317

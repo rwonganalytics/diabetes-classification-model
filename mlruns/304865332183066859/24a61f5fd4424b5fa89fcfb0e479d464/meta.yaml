@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/304865332183066859/24a61f5fd4424b5fa89fcfb0e479d464/artifacts
+end_time: 1734644316039
+entry_point_name: ''
+experiment_id: '304865332183066859'
+lifecycle_stage: active
+run_id: 24a61f5fd4424b5fa89fcfb0e479d464
+run_name: Model 3
+run_uuid: 24a61f5fd4424b5fa89fcfb0e479d464
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1734644310896
+status: 3
+tags: []
+user_id: Donovan_Caballeros

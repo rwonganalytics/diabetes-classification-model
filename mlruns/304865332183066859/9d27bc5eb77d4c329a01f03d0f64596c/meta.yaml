@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/304865332183066859/9d27bc5eb77d4c329a01f03d0f64596c/artifacts
+end_time: 1734644377854
+entry_point_name: ''
+experiment_id: '304865332183066859'
+lifecycle_stage: active
+run_id: 9d27bc5eb77d4c329a01f03d0f64596c
+run_name: Predictions-2024-12-19-15-39-37
+run_uuid: 9d27bc5eb77d4c329a01f03d0f64596c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1734644377738
+status: 3
+tags: []
+user_id: Donovan_Caballeros

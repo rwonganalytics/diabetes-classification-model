@@ -1,27 +1,26 @@
 stages:
-  create_features:
-    cmd: python create_features_and_base_pipeline.py
+  create_pipeline:
+    cmd: python diabetes-predict/create_features_and_base_pipeline.py
     deps:
-      - create_features_and_base_pipeline.py
-      - pipeline.cfg
+      - pipeline.cfg  # Archivo de configuración
+      - diabetes-predict/create_features_and_base_pipeline.py
     outs:
-      - artifacts/pipeline.pkl
+      - artifacts/pipeline.pkl  # Output generado por tu script
 
   configure_and_fit:
-    cmd: python configure_and_fit_pipeline.py
+    cmd: python diabetes-predict/configure_and_fit_pipeline.py
     deps:
-      - configure_and_fit_pipeline.py
-      - artifacts/pipeline.pkl
-      - data/raw/diabetes.csv
+      - artifacts/pipeline.pkl  # Entrada generada por la etapa anterior
+      - data/raw/diabetes.csv  # Dataset usado en esta etapa
+      - diabetes-predict/configure_and_fit_pipeline.py
     outs:
-      - artifacts/trainded_pipeline.pkl
+      - artifacts/trainded_pipeline.pkl  # Pipeline entrenado con el modelo
 
   predict:
-    cmd: python predict_pipeline.py
+    cmd: python diabetes-predict/predict_pipeline.py
     deps:
-      - predict_pipeline.py
-      - artifacts/trainded_pipeline.pkl
-      - data/raw/diabetes.csv
+      - artifacts/trainded_pipeline.pkl  # Entrada del pipeline entrenado
+      - diabetes-predict/predict_pipeline.py
+      - data/raw/diabetes.csv  # Datos sobre los cuales se harán predicciones
     outs:
-      - data/predictions
-
+      - data/predictions/predictions.csv  # Archivo de predicciones generado

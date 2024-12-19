@@ -4,9 +4,10 @@ Este script carga el pipeline ya entrenado y realiza predicciones sobre los dato
 
 import os
 import pickle
+from datetime import datetime
+import shutil
 import pandas as pd
 import mlflow
-from datetime import datetime
 
 def predict_pipeline():
     """
@@ -14,7 +15,7 @@ def predict_pipeline():
     Las predicciones se almacenan en un archivo CSV y se registran en MLflow.
     """
     # Configuración de rutas
-    project_path = os.path.dirname(os.getcwd())
+    project_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
     data_path = os.path.join(project_path, "data", "raw", "diabetes.csv")
     predictions_path = os.path.join(project_path, "data", "predictions")
     os.makedirs(predictions_path, exist_ok=True)
@@ -30,10 +31,14 @@ def predict_pipeline():
     # Realizar predicciones
     predictions = trained_pipeline.predict(test_data)
 
-    # Guardar predicciones en un archivo CSV
+    # Guardar predicciones en un archivo CSV con nombre dinámico
     timestamp = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
     predictions_file = os.path.join(predictions_path, f"predictions-{timestamp}.csv")
     pd.DataFrame(predictions, columns=["Predictions"]).to_csv(predictions_file, index=False)
+
+    # Crear una copia del archivo con un nombre fijo para DVC
+    predictions_file_static = os.path.join(predictions_path, "predictions.csv")
+    shutil.copy(predictions_file, predictions_file_static)
 
     # Registro de predicciones en MLflow
     mlflow.set_tracking_uri('http://127.0.0.1:5000')
@@ -42,7 +47,8 @@ def predict_pipeline():
         mlflow.log_artifact(predictions_file)
 
     print(f"Predicciones guardadas en: {predictions_file}")
-    print(f"Predicciones registradas en MLflow.")
+    print(f"Copia estática para DVC: {predictions_file_static}")
+    print("Predicciones registradas en MLflow.")
 
 if __name__ == "__main__":
     predict_pipeline()
